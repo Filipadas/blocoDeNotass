@@ -8,20 +8,26 @@ document.addEventListener('DOMContentLoaded', () => {
     // Primeiro, precisamos de uma referência ao nosso elemento <textarea>.
     // Usamos 'document.getElementById' para pegar o elemento pelo 'id' que definimos no HTML.
     const blocoDeNotas = document.getElementById('blocoDeNotas');
+    const btnlimparNotas = document.getElementById(btnlimparNotas);
 
+    btnlimparNotas.addEventListener('click', ()=>{
+        blocoDeNotas.value = '';
+        localStorage.removeItem(minhaNota);
+        console.log("Notas limpas e removidas do armazenamento local");
+    })
     // 2. CARREGANDO DADOS DO LOCALSTORAGE
     // ------------------------------------
     // O 'localStorage' é um recurso do navegador que permite salvar informações
     // que persistem mesmo depois que o navegador é fechado.
     // Usamos 'localStorage.getItem()' para buscar um item salvo.
     // Aqui, estamos procurando por um item que salvamos com a chave 'minhaNota'.
-    const notaSalva = localStorage.getItem('minhaNota');
+    const minhaNota = localStorage.getItem('minhaNota');
 
     // Verificamos se encontramos alguma nota salva.
-    if (notaSalva) {
+    if (minhaNota) {
         // Se 'notaSalva' não for nulo (ou seja, existe algo salvo),
         // nós colocamos o valor salvo de volta no nosso 'blocoDeNotas'.
-        blocoDeNotas.value = notaSalva;
+        blocoDeNotas.value = minhaNota;
     }
 
     // 3. ADICIONANDO UM 'EVENTLISTENER'
@@ -45,9 +51,12 @@ document.addEventListener('DOMContentLoaded', () => {
         //   - O primeiro é a CHAVE (o "nome" do nosso dado). Usaremos a mesma chave 'minhaNota'.
         //   - O segundo é o VALOR que queremos salvar. 'blocoDeNotas.value' contém o texto
         //     que está atualmente na área de texto.
-        localStorage.setItem('minhaNota', blocoDeNotas.value);
+        localStorage.setItem('minhaNota', blocoDeNotas.value);    
 
         console.log("Nota salva no localStorage!"); // Uma mensagem no console para fins de depuração.
     });
+
+    
+    
 
 });
